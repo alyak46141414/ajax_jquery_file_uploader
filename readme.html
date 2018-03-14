@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"><title>readme</title>
+
+</head>
+<body>
+<style>
+body
+{
+  padding: 20px;
+}
+
+.part_heading{
+background: gainsboro;
+border-bottom: solid 1px #999999;
+padding: 10px;
+}
+.part_body {
+border: solid 1px #999999;
+width: 50%;
+}
+h2,h3 {
+margin-top: 0px;
+margin-bottom: 0px;
+}
+.code
+{
+background: gainsboro;
+padding-left: 10px;
+padding-right: 100px;
+margin-top: 10px;
+margin-bottom: 10px;
+display: table;
+padding-top: 5px;
+padding-bottom: 5px;
+}
+</style>
+<h1 style="text-decoration: underline;">AL UPLOADER,
+JQUERY PLUGIN</h1>
+Is free to use, you can use in any your project .<br>
+<br>
+Why I have done it . There is many scripts that have many buttons ,
+take large amount of the screen , like plupload or similars . But I
+didnt find any basic script allow <br>
+upload files with one or two buttons multiple files via ajax ( with
+progress bar , image preview at the end , etc etc ). <br>
+<br>
+This is one/two button upload script via html5 , ajax , multiple files
+, multiple forms/buttons. Eq. user choose some file , click "upload"
+and then file uploaded via ajax include progress bar. <br>
+On ajax response you can show images preview , or some info about files
+uploaded<br>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h2>Files to include&nbsp;</h2>
+</div>
+<br>
+&lt;!-- AL UPLOADER core CSS file , this is just example , you can
+copy it to own file or make your own styles--&gt;<br>
+&lt;link rel="stylesheet" href="al-uploader.css"&gt;<br>
+<br>
+<br>
+&lt;!-- jQuery 1.7.2+ , script use basic of jquery , is possible
+compatible with order versions --&gt;<br>
+&lt;script
+src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"&gt;&lt;/script&gt;<br>
+<br>
+&lt;!-- AL UPLOADER core JS file --&gt;<br>
+&lt;script src="al-uploader.js"&gt;&lt;/script&gt;<br>
+<br>
+<br>
+</div>
+How to use: <br>
+<br>
+<h2>HTML</h2>
+<div class="code">
+&lt;form id="fileupload1" action="upload.php" method="POST"
+enctype="multipart/form-data"&gt;<br>
+&lt;input type="file" name="files[]" class="input-files"
+multiple&gt;<br>
+&lt;button type="submit" class="btn btn-primary start"&gt;<br>
+&lt;!-- The global progress bar --&gt;<br>
+&lt;div class="progress active" role="progressbar"
+aria-valuemin="0" aria-valuemax="100"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div class="progress-bar
+progress-bar-success" style="width:0%;"&gt;&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+</div>
+<br>
+<h2>Initializing from javascript</h2>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; onsuccess:
+function(data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+alert("Uploaded");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;);<br>
+</div>
+<br>
+where #fileupload1 is id of upload form . <br>
+<br>
+<h2>PHP</h2>
+$field_name='files';<br>
+<br>
+$file = $_FILES[$field_name]['tmp_name'];<br>
+$type = $_FILES[$field_name]['type'];<br>
+$name = $_FILES[$field_name]['name'];<br>
+$size = $_FILES[$field_name]['size'];<br>
+<br>
+<br>
+above variable can be array in case multiple files uploaded<br>
+<br>
+for( $i = 0; $i &lt; count( $file ); $i++ )<br>
+{<br>
+&nbsp;&nbsp;&nbsp; write_log( $name[$i]."\n" );<br>
+}<br>
+<br>
+<h2>Script options</h2>
+<div class="part_body">
+<div class="part_heading">
+<h3>bntfileclassselector</h3>
+</div>
+<br>
+default value ".input-files"<br>
+<br>
+is class selector of file select button , this need be located inside
+upload form<br>
+<br>
+&lt;input type="file" name="files[]" class="input-files"
+multiple&gt;<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>btnfileid</h3>
+</div>
+<br>
+default value is null <br>
+<br>
+is another way to define selector of file select button as element id ,
+can be located anywhere <br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; btnfileid: '#uploadbutton'<br>
+&nbsp;});<br>
+</div>
+<br>
+&lt;input type="file" name="files[]" id="uploadbutton"
+multiple&gt;<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>btnstartclassselector</h3>
+</div>
+<br>
+default value is ".start"<br>
+<br>
+is class selector of start upload button, this need be located inside
+upload form<br>
+<br>
+&lt;button type="submit" class="btn btn-primary start"&gt;<br>
+<br>
+<h3>btnstartid</h3>
+default value is null<br>
+<br>
+is another way to define selector of start upload button as element id
+, can be located anywhere<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>infoclassselector</h3>
+</div>
+<br>
+default value is ".files-selected"<br>
+<br>
+class of divs where show info about currently selected files , this
+need be located inside upload form<br>
+<br>
+&lt;div class="files-selected"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>infoid</h3>
+</div>
+<br>
+default value is null<br>
+<br>
+is another way to define selector of element with info about currently
+selected files, can be located anywhere<br>
+<br>
+&lt;div id="someid"&gt;<br>
+&lt;/div&gt;<br>
+<br>
+<h3>progressdivselector</h3>
+default value is ".progress"<br>
+<br>
+&lt;div class="progress active" role="progressbar"
+aria-valuemin="0" aria-valuemax="100"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;div class="progress-bar
+progress-bar-success" style="width:0%;"&gt;&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>progressdivid</h3>
+</div>
+<br>
+defaut value is null<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>progressbarselector</h3>
+</div>
+<br>
+default value is ".progress-bar"<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>progressbarid</h3>
+</div>
+<br>
+defaut value is null<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>max_file_names_label_length</h3>
+</div>
+<br>
+default value is 20<br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>showerrorstatus</h3>
+</div>
+<br>
+default value is true <br>
+<br>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>autostartupload</h3>
+</div>
+<br>
+default value is false<br>
+<br>
+</div>
+<br>
+<h2>Events</h2>
+<div class="part_body">
+<div class="part_heading">
+<h3>add</h3>
+</div>
+<br>
+fired when some file added<br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; add: function ()<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;}<br>
+);<br>
+</div>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>beforeupload</h3>
+</div>
+<br>
+fired before upload start<br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; beforeupload: function ()<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;});<br>
+</div>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>progress</h3>
+</div>
+<br>
+fired when progressbar can be updated after new portion of data uploaded<br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; progress: function ()<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;});<br>
+</div>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>onsuccess</h3>
+</div>
+<br>
+fired when files successfully uploaded<br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; onsuccess: function (data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log( data ); //json returned from php , you can return any data
+and process it in the javascript<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;});<br>
+</div>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>onerror</h3>
+</div>
+<br>
+fired when error happen <br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; onerror: function (error)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log( error ); //error need be returned in json response as
+'error: xxxx' , <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//$response = array('error' =&gt; 'errror message'); print
+json_encode( $response );<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;});<br>
+</div>
+</div>
+<br>
+<div class="part_body">
+<div class="part_heading">
+<h3>oncomplete</h3>
+</div>
+<br>
+fired when upload done ( success or not )<br>
+<br>
+<div class="code">
+$('#fileupload1').al_upload(<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; oncomplete: function ()<br>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//no params , fired when ajax upload done<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;});<br>
+</div>
+</div>
+</body></html>

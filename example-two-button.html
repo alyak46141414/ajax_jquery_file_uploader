@@ -1,0 +1,67 @@
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="al-uploader.css">
+<script src="al-uploader.js"></script>
+
+
+<h2>Two button upload demo</h2>
+
+Upload will start as soon as image selected<BR>
+you can select multiple images
+
+<BR><BR>
+
+
+<form id="fileupload1" action="upload.php" method="POST" enctype="multipart/form-data">
+
+    <div class="row fileupload-buttonbar">
+        <div class="col-lg-12">
+
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Choose files...</span>
+                <input type="file" name="files[]" class="input-files" multiple> <!-- for single file remove multiple -->
+            </span>
+
+            <button type="submit" class="btn btn-primary start">
+                <i class="glyphicon glyphicon-upload"></i>
+                <span>Start upload</span>
+            </button>
+            <div class="files-selected">
+            </div>
+
+            <!-- The global progress bar -->
+            <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<div id="preview">
+</div>
+
+
+
+<script>
+
+var href = window.location.href;
+var path = window.location.pathname;
+    href = href.substring(0, href.lastIndexOf('/')+1);
+
+$('#fileupload1').al_upload(
+    {
+
+       onsuccess: function(data)
+       {
+             $('#preview').empty();
+             for( var i = 0; i < data.length; i++ )
+             {
+                //console.log( data[i] );
+                $('#preview').append( '<div><img src="'+href+data[i]+'" height="80" class="pull-left img-rounded"></div>');
+             }
+       }
+    }
+ );
+</script>
