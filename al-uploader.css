@@ -13,6 +13,7 @@
   font-size: 200px !important;
   direction: ltr;
   cursor: pointer;
+  line-height: normal;
 }
 
 .progress
@@ -28,3 +29,4 @@
     height: 100%;
   }
 }
+
